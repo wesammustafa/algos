@@ -40,3 +40,7 @@ const hasPath = (graph, src, dst) => {
 
   return false;
 };
+
+module.exports = {
+  hasPath
+}
