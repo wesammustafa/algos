@@ -12,23 +12,26 @@
  * @param {Node} root
  * @return {Node}
  */
-var connect = function (root) {
-  if (!root) return root;
-  let queue = [];
-  queue.push(root);
-  while (queue.length) {
-    let length = queue.length;
-    let node;
-    let temp = queue;
-    queue = [];
-    let last;
-    for (let i = 0; i < length; i++) {
-      node = temp.shift();
-      if (last) last.next = node;
-      if (node.left) queue.push(node.left);
-      if (node.right) queue.push(node.right);
-      last = node;
+ var connect = function (root) {
+    if (root === null) return root;
+    
+    const level = 0;
+    const queue = [[root, level]];
+    
+    while (queue.length) {
+        const [current, level] = queue.shift();
+        
+        if (queue.length) {
+            const [next, nextLevel] = queue[0];
+            if (level === nextLevel) {
+                current.next = next;
+            }
+        }
+        if (current.left) queue.push([current.left, level+1]);
+        if (current.right) queue.push([current.right, level+1]); 
     }
-  }
-  return root;
+    
+    
+    
+    return root;
 };
