@@ -1,65 +1,72 @@
 /**
  * @param {number} k
  */
- var MyCircularQueue = function(k) {
-    this.size = k;
+var MyCircularQueue = function (k) {
     this.data = new Array(k);
-    this.head = this.size - 1;
-    this.tail = 0;
-    this.count = 0;
+    this.size = k;
+    this.head = -1;
+    this.tail = -1;
 };
 
-/** 
+/**
  * @param {number} value
  * @return {boolean}
  */
-MyCircularQueue.prototype.enQueue = function(value) {
+MyCircularQueue.prototype.enQueue = function (value) {
     if (this.isFull()) return false;
-    this.data[this.tail] = value;
+    if (this.isEmpty()) this.head = 0;
     this.tail = (this.tail + 1) % this.size;
-    ++this.count;
+    data[this.tail] = value;
     return true;
 };
 
 /**
  * @return {boolean}
  */
-MyCircularQueue.prototype.deQueue = function() {
-  if(this.isEmpty()) return false;
+MyCircularQueue.prototype.deQueue = function () {
+    if (this.isEmpty()) return false;
+    if (this.head === this.tail) {
+        this.head = -1;
+        this.tail = -1;
+        return true;
+    }
     this.head = (this.head + 1) % this.size;
-    --this.count;
     return true;
 };
 
 /**
  * @return {number}
  */
-MyCircularQueue.prototype.Front = function() {
-    return this.isEmpty() ? -1 : this.data[(this.head + 1) % this.size];
+MyCircularQueue.prototype.Front = function () {
+    if (this.isEmpty()) return -1;
+
+    return this.data[this.head];
 };
 
 /**
  * @return {number}
  */
-MyCircularQueue.prototype.Rear = function() {
-    return this.isEmpty() ? -1 : this.data[(this.tail - 1 + this.size) % this.size];
+MyCircularQueue.prototype.Rear = function () {
+    if (this.isEmpty()) return -1;
+    
+    return this.data[this.tail];
 };
 
 /**
  * @return {boolean}
  */
-MyCircularQueue.prototype.isEmpty = function() {
-    return this.count == 0;
+MyCircularQueue.prototype.isEmpty = function () {
+    return this.head === -1;
 };
 
 /**
  * @return {boolean}
  */
-MyCircularQueue.prototype.isFull = function() {
-    return this.count == this.size;
+MyCircularQueue.prototype.isFull = function () {
+    return ((this.tail + 1) % size) === this.head;
 };
 
-/** 
+/**
  * Your MyCircularQueue object will be instantiated and called as such:
  * var obj = new MyCircularQueue(k)
  * var param_1 = obj.enQueue(value)
