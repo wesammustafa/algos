@@ -18,8 +18,9 @@ var isPalindrome = function (x) {
   return b === x;
 };
 
-//------------------------------------------------------------
-//second solution
+//--------------------------------------------------
+// time O(n)
+// space complexity O(1)
 var isPalindrome = function (x) {
   if (x < 0 || (x % 10 === 0 && x != 0)) {
     return false;
