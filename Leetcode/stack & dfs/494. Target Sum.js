@@ -3,23 +3,22 @@
  * @param {number} target
  * @return {number}
  */
- var findTargetSumWays = function(nums, target) {
-    const numsLength = nums.length;
-let result = 0;
+var findTargetSumWays = function (nums, S) {
+  let sums = new Map([[0, 1]]);
 
-const travel = (sum, depth) => {
-    console.log(depth)
-    if (depth === numsLength) {        
-        if (sum === target) {
-            result += 1;
-        }
-        return;
+  for (let num of nums) {
+    const next = new Map();
+
+    for (let [sum, amount] of sums) {
+      const plus = sum + num;
+      const minus = sum - num;
+
+      next.set(plus, next.has(plus) ? next.get(plus) + amount : amount);
+      next.set(minus, next.has(minus) ? next.get(minus) + amount : amount);
     }
-    
-    travel(sum + nums[depth], depth + 1);
-    travel(sum - nums[depth], depth + 1);
-}
 
-travel(0, 0);
-return result;
+    sums = next;
+  }
+
+  return sums.has(S) ? sums.get(S) : 0;
 };
