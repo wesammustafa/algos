@@ -6,6 +6,8 @@
  *     this.right = (right===undefined ? null : right)
  * }
  */
+//  Time Complexity: O(n^2)
+//  Space Complexity: O(n)
 /**
  * @param {number} n
  * @return {TreeNode[]}
