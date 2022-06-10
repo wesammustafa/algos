@@ -16,7 +16,7 @@ MyCircularQueue.prototype.enQueue = function (value) {
     if (this.isFull()) return false;
     if (this.isEmpty()) this.head = 0;
     this.tail = (this.tail + 1) % this.size;
-    data[this.tail] = value;
+    this.data[this.tail] = value;
     return true;
 };
 
